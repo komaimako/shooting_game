@@ -4,6 +4,101 @@ import random
 import sys
 import math
 
+pygame.init()
+
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+STATE_TITLE = -1
+STATE_PLAYING = -2
+STATE_GAMEOVER = -3
+STATE_CLEAR = -4
+
+TEXT_BLINKING_INTERVAL = 600
+
+BLACK = (0, 0, 0)
+WHITE = (230, 230, 230)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+
+BLINKING_TIME = 500
+BLINKING_INTERVAL = 100
+
+PLAYER_BULLET_SPEED = 10
+
+ENEMY_BULLET_SPEED_1 = 3
+ENEMY_BULLET_SPEED_2 = 2
+ENEMY_BULLET_SPEED_3 = 5
+BOSS_BULLET_SPEED = 7
+
+PLAYER_BULLET_INTERVAL = 50
+
+BULLET_INTERVAL_1 = 1500
+BULLET_INTERVAL_2 = 500
+BULLET_INTERVAL_3 = 1000
+BULLET_INTERVAL_4 = 80
+
+STAGE_1_ENEMY_1 = 6
+
+STAGE_2_ENEMY_1 = 10
+STAGE_2_ENEMY_2 = 3
+
+STAGE_3_ENEMY_1 = 7
+STAGE_3_ENEMY_2 = 3
+
+STAGE_4_ENEMY_1 = 3
+STAGE_4_ENEMY_2 = 2
+STAGE_4_ENEMY_3 = 1
+
+"""�摜����"""
+img_player = pygame.image.load("img/cannon.png")
+img_player_bullet = pygame.image.load("img/player_bullet.png")
+img_enemy_bullet = pygame.image.load("img/enemy_bullet_red.png")
+img_enemy_bullet_2 = pygame.image.load("img/enemy_bullet_purple.png")
+img_enemy_bullet_3 = pygame.image.load("img/enemy_bullet_blue.png")
+img_enemy_1 = pygame.image.load("img/enemy_blue.png")
+img_enemy_2 = pygame.image.load("img/enemy_gray.png")
+img_enemy_3 = pygame.image.load("img/enemy_black.png")
+img_boss = pygame.image.load("img/hiroshi.png")
+""""""
+
+img_hp_bar = pygame.Surface((500, 20))
+img_hp_bar.fill(GREEN)
+
+"""��������"""
+player_bullet_sound = pygame.mixer.Sound("snd/shoot2.mp3")
+player_bullet_sound.set_volume(0.05)
+damage_sound = pygame.mixer.Sound("snd/damage.mp3")
+damage_sound.set_volume(0.05)
+explosion_sound = pygame.mixer.Sound("snd/attack1.mp3")
+explosion_sound.set_volume(0.1)
+hit_sound = pygame.mixer.Sound("snd/select05.mp3")
+hit_sound.set_volume(0.05)
+man_damage = pygame.mixer.Sound("snd/man_damage.mp3")
+man_damage.set_volume(0.2)
+man_scream = pygame.mixer.Sound("snd/man_scream.mp3")
+man_scream.set_volume(0.7)
+""""""
+
+img_player = pygame.image.load("img/cannon.png")
+img_player_bullet = pygame.image.load("img/player_bullet.png")
+
+img_hp_bar = pygame.Surface((500, 20))
+img_hp_bar.fill(GREEN)
+
+player_bullet_sound = pygame.mixer.Sound("snd/shoot2.mp3")
+player_bullet_sound.set_volume(0.05)
+damage_sound = pygame.mixer.Sound("snd/damage.mp3")
+damage_sound.set_volume(0.05)
+explosion_sound = pygame.mixer.Sound("snd/attack1.mp3")
+explosion_sound.set_volume(0.1)
+hit_sound = pygame.mixer.Sound("snd/select05.mp3")
+hit_sound.set_volume(0.05)
+man_damage = pygame.mixer.Sound("snd/man_damage.mp3")
+man_damage.set_volume(0.2)
+man_scream = pygame.mixer.Sound("snd/man_scream.mp3")
+man_scream.set_volume(0.7)
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
